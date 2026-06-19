@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Results</title>
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Google Fonts: Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px 0;
+        }
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #343a40;
+        }
+        .metrics-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            height: 100%;
+        }
+        .chart-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        pre {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .btn-gradient {
+            background: linear-gradient(45deg, #17a2b8, #20c997);
+            border: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(45deg, #138496, #1aa179);
+            color: white;
+            box-shadow: 0 4px 10px rgba(23, 162, 184, 0.4);
+        }
+        .btn-outline-custom {
+            border: 2px solid #007bff;
+            color: #007bff;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-outline-custom:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="result-header">
+        <h1>Analysis Results</h1>
+        <p class="text-muted">Network Traffic DDoS Classification</p>
+    </div>
+
+    <!-- Metrics Section -->
+    <div class="metrics-card">
+        <h4 class="mb-3">Prediction Accuracy: <span class="text-primary">{{ accuracy }}</span></h4>
+        <h5>Classification Report:</h5>
+        <pre>{{ report }}</pre>
+    </div>
+
+    <!-- Charts Section (Flexbox Layout) -->
+    <div class="row d-flex align-items-stretch mb-5">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="chart-card d-flex flex-column justify-content-center">
+                <h5 class="text-center mb-3">Prediction Distribution</h5>
+                <img src="{{ url_for('static', filename='prediction_pie_chart.png') }}" alt="Pie Chart">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="chart-card d-flex flex-column justify-content-center">
+                <h5 class="text-center mb-3">Prediction Counts</h5>
+                <img src="{{ url_for('static', filename='prediction_bar_chart.png') }}" alt="Bar Chart">
+            </div>
+        </div>
+    </div>
+
+    <!-- Downloads Section -->
+    <div class="text-center mb-5">
+        <h4 class="mb-4">Download Processed Data</h4>
+        <a href="{{ url_for('download_file', filename='benign_results.csv') }}" class="btn btn-gradient px-4 py-2 mx-2 mb-2">Download BENIGN CSV</a>
+        <a href="{{ url_for('download_file', filename='ddos_results.csv') }}" class="btn btn-gradient px-4 py-2 mx-2 mb-2">Download DDoS CSV</a>
+    </div>
+
+    <!-- Upload Another -->
+    <div class="text-center">
+        <a href="/" class="btn btn-outline-custom px-5 py-2">Upload Another File</a>
+    </div>
+
+</div>
+
+<!-- Bootstrap 4 JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
